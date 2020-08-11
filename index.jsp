@@ -94,9 +94,84 @@
                 min-width:250px;
                 max-width:250px;
             }
+            
+            .signin-form{
+            	display: none; /* Hidden by default */
+			    position: fixed; /* Stay in place */
+			    z-index: 1000; /* Sit on top */
+			    padding: 20px; /* Location of the box */
+			    left: 0;
+			    top: 0;
+			    width: 100%; /* Full width */
+			    height: 100%; /* Full height */
+			    overflow: auto; /* Enable scroll if needed */
+			    background-color: rgb(0,0,0); /* Fallback color */
+			    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+            }
+            .close {
+              position: absolute;
+			  top: 15px;
+			  right: 35px;
+			  color: #f1f1f1;
+			  font-size: 40px;
+			  font-weight: bold;
+			  transition: 0.3s;
+			}
+			.close:hover,
+			.close:focus {
+			  color: #bbb;
+			  text-decoration: none;
+			  cursor: pointer;
+			}
+			.close-form:hover,
+			.close-form:focus {
+			  color: #bbb;
+			  text-decoration: none;
+			  cursor: pointer;
+			}
+            
+            .signin{
+              background-color:#e7dfd5; 
+              position:absolute;
+              width:30%; 
+              left:35%;
+              top:25%;
+			  -webkit-animation-name: zoom;
+			  -webkit-animation-duration: 0.6s;
+			  animation-name: zoom;
+			  animation-duration: 0.6s;
+  			}
+  			@-webkit-keyframes zoom {
+			  from {-webkit-transform:scale(0)} 
+			  to {-webkit-transform:scale(1)}
+			}
+			
+			@keyframes zoom {
+			  from {transform:scale(0)} 
+			  to {transform:scale(1)}
+			}
         </style>
     </head>
     <body style="background-color: #e7dfd5;">
+    <div class="signin-form" id="signInForm">
+  			<span class="close" onclick="closeForm()">&times;</span>
+  			<div class="signin w3-card-4 w3-round-large w3-border w3-padding "> 
+  				<div class="w3-center" style="background-color:#204051;color:white;margin-bottom:25px;font-size:1.2em;">
+  					Sign In
+  				</div>
+  				<form action="index.jsp" method="POST">
+  					<label style="color:#204051;font-weight:bold;">Username</label>
+  					<input class="w3-input" type = "text" name = "username">
+  					<br>
+  					<label style="color:#204051;font-weight:bold;">Password</label>
+  					<input class="w3-input" type = "text" name = "password">
+  					<br>
+  					<div class="w3-center">
+  						<input type = "submit" value = "Enter" class="w3-btn" style="background-color:#204051;color:white;"/>
+  					</div>
+  				</form>
+  			</div> 
+	</div>
     <!-- Navbar -->
         <div class="w3-container" style="background-color: #204051; color:white;padding:0px;">
             <div class="w3-bar w3-card">
@@ -110,7 +185,7 @@
             <div class="w3-bar-item w3-padding w3-hide-small">
                 <input type="text" class="w3-bar-item w3-input w3-round-large" style="background-color: #e7dfd5; width:460px;" placeholder="Search for a movie or series...">
             </div>
-            <a href="#signin" class="w3-bar-item w3-button w3-padding w3-hide-small w3-right w3-round-large" style="margin:8px;">Sign In</a>
+            <button class="w3-bar-item w3-button w3-padding w3-hide-small w3-right w3-round-large" style="margin:8px;" onclick="showForm()">Sign In</button>
             <!--<div class="w3-dropdown-hover w3-hide-small w3-right">
                 <button class="w3-padding w3-button w3-round-large" style="margin:8px;" title="More">"Username"<i class="fa fa-caret-down"></i></button>     
                 <div class="w3-dropdown-content w3-bar-block w3-card-4">
@@ -138,7 +213,7 @@
                 <% for(Film f : films){ %>
                 <div class="movie-thumbnail w3-card-4 w3-left  w3-center w3-round">
                     <img src="poster.jpg" alt="<%=f.getFilmName() %>>" class="thumbnail-image w3-image w3-round" style="padding-bottom:12px;">
-                    <%=f.getFilmName() %>
+                    <span style="font-weight:bold;"><%=f.getFilmName() %></span>
                     <br>
                     <div style="position:absolute;bottom:0;left:19%;">User rating: <% if(f.getFilmNrRates()==0) 
                     		out.print(0); 
@@ -327,6 +402,15 @@
 
 	function plusDivs(n) {
   		showDivs(slideIndex += n);
+	}
+	
+	function showForm(){
+		var signInForm = document.getElementById("signInForm");
+		signInForm.style.display = "block";
+	}
+	function closeForm(){
+		var closeBtn = document.getElementsByClassName("close");
+		signInForm.style.display = "none";
 	}
 
 	function showDivs(n) {
