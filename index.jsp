@@ -159,12 +159,12 @@
   				<div class="w3-center" style="background-color:#204051;color:white;margin-bottom:25px;font-size:1.2em;">
   					Sign In
   				</div>
-  				<form action="index.jsp" method="POST">
+  				<form action="validate.jsp" method="POST">
   					<label style="color:#204051;font-weight:bold;">Username</label>
   					<input class="w3-input" type = "text" name = "username">
   					<br>
   					<label style="color:#204051;font-weight:bold;">Password</label>
-  					<input class="w3-input" type = "text" name = "password">
+  					<input class="w3-input" type = "password" name = "password">
   					<br>
   					<div class="w3-center">
   						<input type = "submit" value = "Enter" class="w3-btn" style="background-color:#204051;color:white;"/>
@@ -185,15 +185,19 @@
             <div class="w3-bar-item w3-padding w3-hide-small">
                 <input type="text" class="w3-bar-item w3-input w3-round-large" style="background-color: #e7dfd5; width:460px;" placeholder="Search for a movie or series...">
             </div>
-            <button class="w3-bar-item w3-button w3-padding w3-hide-small w3-right w3-round-large" style="margin:8px;" onclick="showForm()">Sign In</button>
-            <!--<div class="w3-dropdown-hover w3-hide-small w3-right">
-                <button class="w3-padding w3-button w3-round-large" style="margin:8px;" title="More">"Username"<i class="fa fa-caret-down"></i></button>     
-                <div class="w3-dropdown-content w3-bar-block w3-card-4">
-                    <a href="#" class="w3-bar-item w3-button">Your movies</a>
-                    <a href="#" class="w3-bar-item w3-button">Favorites</a>
-                    <a href="#" class="w3-bar-item w3-button">Change password</a>
-                </div>
-            </div>-->
+            <%if(session.getAttribute("user")==null){%>
+            	<button class="w3-bar-item w3-button w3-padding w3-hide-small w3-right w3-round-large" style="margin:8px;" onclick="showForm()">Sign In</button>
+            <%} else{ %>
+	            <div class="w3-dropdown-hover w3-hide-small w3-right">
+	                <button class="w3-padding w3-button w3-round-large" style="margin:8px;" title="More"><%=session.getAttribute("user") %><i class="fa fa-caret-down"></i></button>     
+	                <div class="w3-dropdown-content w3-bar-block w3-card-4">
+	                    <a href="#" class="w3-bar-item w3-button">Your movies</a>
+	                    <a href="#" class="w3-bar-item w3-button">Favorites</a>
+	                    <a href="#" class="w3-bar-item w3-button">Change password</a>
+	                    <a href="logout.jsp" class="w3-bar-item w3-button">Logout</a>
+	                </div>
+	            </div>
+            <%} %>
             </div>
         </div>
 
