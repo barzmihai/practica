@@ -1,4 +1,3 @@
-<html lang="en">
 <head>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://www.fontsquirrel.com/fonts/gnu-free-font">
@@ -26,6 +25,10 @@
         }
 
         .pagination a:hover:not(.active) {background-color: #ddd;}
+
+        .item1 {
+            grid-row: 1 / 4;
+        }
     </style>
     <title>Movies</title>
 </head>
@@ -109,65 +112,51 @@
             </div>
         </div>
     </div>
+
+
     <!-- lista filme -->
-    <div class="w3-container" style="margin-left:20%;">
-        <div class="w3-row" >
-            <div class="w3-panel w3-card w3-hover-shadow w3-cell" style="width: 100px; height: 130px; margin:30px;">
-                <img src="poster.jpg" class="w3-round-small" alt="Movie 1" >
-            </div>
-            <div class="w3 panel w3-card w3-hover-shadow w3-cell" style="width: 100px; height: 130px; margin:30px;">
-                <img src="poster.jpg" class="w3-round-small" alt="Movie 2" >
-            </div>
-            <div class="w3-panel w3-card w3-hover-shadow w3-cell" style="width: 100px; height: 130px; margin:30px;">
-                <img src="poster.jpg" class="w3-round-small" alt="Movie 3" >
-            </div>
-            <div class="w3 panel w3-card w3-hover-shadow w3-cell" style="width: 100px; height: 130px; margin:30px;">
-                <img src="poster.jpg" class="w3-round-small" alt="Movie 4" >
-            </div>
 
-        </div>
+<div class="w3-container" style = "margin-left:20%; background-color:#e7dfd5">
 
-        <div class="w3-row" >
-            <div class="w3-panel w3-card w3-hover-shadow w3-cell" style="width: 100px; height: 130px">
-                <img src="poster.jpg" class="w3-round-small" alt="Movie 1" >
-            </div>
-            <div class="w3 panel w3-card w3-hover-shadow w3-cell" style="width: 100px; height: 130px">
-                <img src="poster.jpg" class="w3-round-small" alt="Movie 2" >
-            </div>
-            <div class="w3-panel w3-card w3-hover-shadow w3-cell" style="width: 100px; height: 130px">
-                <img src="poster.jpg" class="w3-round-small" alt="Movie 3" >
-            </div>
-            <div class="w3 panel w3-card w3-hover-shadow w3-cell" style="width: 100px; height: 130px">
-                <img src="poster.jpg" class="w3-round-small" alt="Movie 4" >
-            </div>
-        </div>
+   <div class="w3-row">
 
-        <div class="w3-row" >
-            <div class="w3-panel w3-card w3-hover-shadow w3-cell" style="width: 100px; height: 130px">
-                <img src="poster.jpg" class="w3-round-small" alt="Movie 1" >
-            </div>
-            <div class="w3 panel w3-card w3-hover-shadow w3-cell" style="width: 100px; height: 130px">
-                <img src="poster.jpg" class="w3-round-small" alt="Movie 2" >
-            </div>
-            <div class="w3-panel w3-card w3-hover-shadow w3-cell" style="width: 100px; height: 130px">
-                <img src="poster.jpg" class="w3-round-small" alt="Movie 3" >
-            </div>
-            <div class="w3 panel w3-card w3-hover-shadow w3-cell" style="width: 100px; height: 130px">
-                <img src="poster.jpg" class="w3-round-small" alt="Movie 4" >
-            </div>
-        </div>
-        <div class="center">
-            <div class="pagination" >
-                <a href="#">&laquo;</a>
-                <a class="active" href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
+       <div class="w3-col m1 w3-center">
+           <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
+               <img src="poster.jpg" alt="Movie 1" class="thumbnail-image w3-image w3-round" style="padding-bottom:12px; width:200px;height:266px;">
+               Movie 1
+           </div>
+       </div>
+       <div class="w3-col m1 w3-center">
+           <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
+               <img src="poster.jpg" alt="Movie 2" class="thumbnail-image w3-image w3-round" style="padding-bottom:12px;width:200px;height:266px;">
+               Movie 2
+           </div>
+       </div>
+       <div class="w3-col m1 w3-center">
+           <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
+               <img src="poster.jpg" alt="Movie 3" class="thumbnail-image w3-image w3-round" style="padding-bottom:12px;width:200px;height:266px;">
+               Movie 3
+           </div>
+       </div>
+       <div class="w3-col m1 w3-center">
+           <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
+               <img src="poster.jpg" alt="Movie 4" class="thumbnail-image w3-image w3-round" style="padding-bottom:12px;width:200px;height:266px;">
+               Movie 4
+           </div>
+       </div>
+   </div>
 
-                <a href="#">9</a>
-                <a href="#">&raquo;</a>
-            </div>
+    <div class="center">
+        <div class="pagination" >
+            <a href="#">&laquo;</a>
+            <a class="active" href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">&raquo;</a>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>
