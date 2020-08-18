@@ -20,11 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a479a59e-a0f4-4014-8fcb-4a8be9d33513" name="Default Changelist" comment="film page">
-      <change afterPath="$PROJECT_DIR$/celebrities.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logout.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/validate.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/movies.php" beforeDir="false" afterPath="$PROJECT_DIR$/movies.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +61,8 @@
       <option name="presentableId" value="Default" />
       <updated>1597159207626</updated>
       <workItem from="1597159208723" duration="1240000" />
-      <workItem from="1597484123994" duration="4334000" />
+      <workItem from="1597484123994" duration="4550000" />
+      <workItem from="1597744261244" duration="1367000" />
     </task>
     <task id="LOCAL-00001" summary="film page">
       <created>1597487935572</created>
@@ -89,6 +87,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="film page" />
