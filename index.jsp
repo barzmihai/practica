@@ -21,14 +21,6 @@
                 position:relative;
                 overflow:hidden;
             }
-	    #recentmovies{
-		opacity:1;
-    		-webkit-transition: all 0.25s ease-in-out;
-    		-moz-transition: all 0.25s ease-in-out;
-    		-ms-transition: all 0.25s ease-in-out;
-    		-o-transition: all 0.25s ease-in-out;
-    		transition: all 0.25s ease-in-out;
-	    }
             .movie-thumbnail,.series-thumbnail{
                 background-color: #998e89;
             }
@@ -141,6 +133,16 @@
 			  animation-name: zoom;
 			  animation-duration: 0.6s;
   			}
+  			
+		    #recentmovies, #recentseries, #recentmoviesalt, #recentseriesalt{
+			opacity:1;
+	    		-webkit-transition: all 0.25s ease-in-out;
+	    		-moz-transition: all 0.25s ease-in-out;
+	    		-ms-transition: all 0.25s ease-in-out;
+	    		-o-transition: all 0.25s ease-in-out;
+	    		transition: all 0.25s ease-in-out;
+		    }
+  			
   			@-webkit-keyframes zoom {
 			  from {-webkit-transform:scale(0)} 
 			  to {-webkit-transform:scale(1)}
@@ -181,7 +183,7 @@
             <a href="#" class="w3-bar-item w3-button w3-padding w3-round-large" style="margin:8px;">Featured</a>
             <a href="#movies" class="w3-bar-item w3-button w3-padding w3-hide-small w3-round-large" style="margin:8px;">Movies</a>
             <a href="#tvshows" class="w3-bar-item w3-button w3-padding w3-hide-small w3-round-large" style="margin:8px;">TV Shows</a>
-            <a href="#celebrities" class="w3-bar-item w3-button w3-padding w3-hide-small w3-round-large" style="margin:8px;">Celebrities</a>
+            <a href="celebrities.jsp" class="w3-bar-item w3-button w3-padding w3-hide-small w3-round-large" style="margin:8px;">Celebrities</a>
             <div class="w3-bar-item w3-padding w3-hide-small">
                 <input type="text" class="w3-bar-item w3-input w3-round-large" style="background-color: #e7dfd5; width:460px;" placeholder="Search for a movie or series...">
             </div>
@@ -204,9 +206,9 @@
         <!-- Content -->
         <div class="w3-content" style="max-width:2000px;margin-top:30px;">
 		
-		<%@ page import="dao.FilmDAO,model.Film,java.util.List" %>
-		<% FilmDAO filmdao = new FilmDAO(); 
-		List<Film> films = filmdao.getFilms();
+		<%@ page import="model.Film,model.Person,java.util.List,java.util.Date,business.FilmLogic,business.PersonLogic" %>
+		<% FilmLogic filmLogic = new FilmLogic(); 
+		List<Film> films = filmLogic.getRecentFilms();
 		%>
         <!--Recent content-->
         <div style="background-color:#c8c2bb;padding-top:20px;">
@@ -216,37 +218,8 @@
             <div id="recentmovies" class="w3-cell-row w3-row-padding w3-padding" style="width:100%; margin-top:16px;display:flex;justify-content: center; ">
                 <% for(Film f : films){ %>
                 <div class="movie-thumbnail w3-card-4 w3-left  w3-center w3-round">
-<<<<<<< HEAD:index.html
-                    <img src="poster.jpg" alt="Movie 1" class="thumbnail-image w3-image w3-round" style="padding-bottom:12px;">
-                    Movie 11111111111111111111111111111111
-                    <br>
-                    <div style="position:absolute;bottom:0;left:19%;">User rating: 5/5</div>
-                </div>
-                <div class="movie-thumbnail w3-card-4 w3-left  w3-center w3-round">
-                    <img src="poster.jpg" alt="Movie 2" class="thumbnail-image w3-image w3-round" style="padding-bottom:12px;">
-                    Movie 2
-                    <br>
-                    <div style="position:absolute;bottom:0;left:19%;">User rating: 5/5</div>
-                </div>
-                <div class="movie-thumbnail w3-card-4 w3-left w3-center w3-round">
-                    <img src="poster.jpg" alt="Movie 3" class="thumbnail-image w3-image w3-round" style="padding-bottom:12px;">
-                    Movie 3
-                    <br>
-                    <div style="position:absolute;bottom:0;left:19%;">User rating: 5/5</div>
-                </div>
-                <div class="movie-thumbnail w3-card-4 w3-left  w3-center w3-round">
-                    <img src="poster.jpg" alt="Movie 4" class="thumbnail-image w3-image w3-round" style="padding-bottom:12px;">
-                    Movie 4
-                    <br>
-                    <div style="position:absolute;bottom:0;left:19%;">User rating: 5/5</div>
-                </div>
-                <div class="movie-thumbnail w3-card-4 w3-left w3-middle w3-center w3-round">
-                    <img src="poster.jpg" alt="Movie 5" class="thumbnail-image w3-image w3-round" style="padding-bottom:12px;">
-                    Movie 5
-=======
                     <img src="poster.jpg" alt="<%=f.getFilmName() %>>" class="thumbnail-image w3-image w3-round" style="padding-bottom:12px;">
                     <span style="font-weight:bold;"><%=f.getFilmName() %></span>
->>>>>>> origin/master:index.jsp
                     <br>
                     <div style="position:absolute;bottom:0;left:19%;">User rating: <% if(f.getFilmNrRates()==0) 
                     		out.print(0); 
@@ -256,14 +229,14 @@
                 </div>
                 <% } %>
                             </div>
-            <button class="slideshow-btn  w3-display-left" style="margin-left:4px;" onclick="plusDivs(-1)">&#10094;</button>
-            <button class="slideshow-btn  w3-display-right" style="margin-right:4px;" onclick="plusDivs(+1)">&#10095;</button>
+            <button class="slideshow-btn  w3-display-left" style="margin-left:4px;" onclick="plusDivs(-1,0)">&#10094;</button>
+            <button class="slideshow-btn  w3-display-right" style="margin-right:4px;" onclick="plusDivs(+1,0)">&#10095;</button>
         </div>
 
         <!--Recent series section-->
         <div class="w3-display-container w3-padding" style="padding-top:20px;margin-top:50px;">
             <span class="section-heading">Most recent TV shows</span>
-            <div class="w3-row-padding w3-padding" style="  margin-top:16px; display:flex;justify-content: center;">
+            <div id="recentseries" class="w3-row-padding w3-padding" style="  margin-top:16px; display:flex;justify-content: center;">
                 <div class="series-thumbnail w3-card-4 w3-left w3-center w3-round">
                     <img src="poster.jpg" alt="Movie 1" class="thumbnail-image w3-image w3-round" style="padding-bottom:12px;">
                     TV Series 1(Seasons,Episodes)
@@ -283,94 +256,47 @@
                     <div style="position:absolute;bottom:0;left:30%;">User rating: 5/5</div>
                 </div>
             </div>
-            <button class="slideshow-btn  w3-display-left" style="margin-left:4px;" onclick="plusDivs(-1)">&#10094;</button>
-            <button class="slideshow-btn  w3-display-right" style="margin-right:4px;" onclick="plusDivs(+1)">&#10095;</button>
+            <button class="slideshow-btn  w3-display-left" style="margin-left:4px;" onclick="plusDivs(-1,1)">&#10094;</button>
+            <button class="slideshow-btn  w3-display-right" style="margin-right:4px;" onclick="plusDivs(+1,1)">&#10095;</button>
         </div>
 
+		<%	PersonLogic personLogic = new PersonLogic();
+			List<Person> birthdays = personLogic.getBirthdays();
+		%>
         <!--Birthdays section-->
         <div class="w3-container w3-padding" style="padding-top:20px;margin-top:50px;">
             <span class="section-heading">Celebrities born today</span>
             <div style="display:flex; min-height:150px; overflow-x:scroll; margin-top:16px;font-size:0.9em;padding-top:16px;font-weight: bold;">
+                <%Date today = new Date();
+                for(Person p:birthdays){ %>
                 <div class="actor-thumbnail w3-center" style="overflow:hidden;">
                     <div style="width:87%;margin:auto;">
                         <img src="portrait.jpg" alt="Actor1" class="thumbnail-image w3-image w3-circle">
                     </div>
-                    Actor 1
+                    <%=p.getPersonName() %>
                     <br>
-                    <span style="font-weight:normal;">Age</span>
+                    <span style="font-weight:normal;"><%=today.getYear()-p.getPersonDOB().getYear() %></span>
                 </div>
-                <div class="actor-thumbnail w3-center">
-                    <div style="width:87%;margin:auto;">
-                        <img src="portrait.jpg" alt="Actor2" class="thumbnail-image w3-image w3-circle">
-                    </div>
-                    Actor 2
-                    <br>
-                    <span style="font-weight:normal;">Age</span>
-                </div>
-                <div class="actor-thumbnail w3-center">
-                    <div style="width:87%;margin:auto;">
-                        <img src="portrait.jpg" alt="Actor3" class="thumbnail-image w3-image w3-circle">
-                    </div>
-                    Actor 3
-                    <br>
-                    <span style="font-weight:normal;">Age</span>
-                </div>
-                <div class="actor-thumbnail w3-center">
-                    <div style="width:87%;margin:auto;">
-                        <img src="portrait.jpg" alt="Actor4" class="thumbnail-image w3-image w3-circle">
-                    </div>
-                    Actor 4
-                    <br>
-                    <span style="font-weight:normal;">Age</span>
-                </div>
-                <div class="actor-thumbnail w3-center">
-                    <div style="width:87%;margin:auto;">
-                        <img src="portrait.jpg" alt="Actor5" class="thumbnail-image w3-image w3-circle">
-                    </div>
-                    Actor 5
-                    <br>
-                    <span style="font-weight:normal;">Age</span>
-                </div>
-                <div class="actor-thumbnail w3-center">
-                    <div style="width:87%;margin:auto;">
-                        <img src="portrait.jpg" alt="Actor6" class="thumbnail-image w3-image w3-circle">
-                    </div>
-                    Actor 6
-                    <br>
-                    <span style="font-weight:normal;">Age</span>
-                </div>
-                <div class="actor-thumbnail w3-center">
-                    <div style="width:87%;margin:auto;">
-                        <img src="portrait.jpg" alt="Actor7" class="thumbnail-image w3-image w3-circle">
-                    </div>
-                    Actor 7
-                    <br>
-                    <span style="font-weight:normal;">Age</span>
-                </div>
-                <div class="actor-thumbnail w3-center">
-                    <div style="width:87%;margin:auto;">
-                        <img src="portrait.jpg" alt="Actor8" class="thumbnail-image w3-image w3-circle">
-                    </div>
-                    Actor 8
-                    <br>
-                    <span style="font-weight:normal;">Age</span>
-                </div>
+                <%} %>
             </div>
         </div>
         </div>
 
+		<%films=filmLogic.getRatedFilms(); %>
         <!--Highly rated content-->
         <div style="background-color:#3b6978;color:whitesmoke;padding-top:30px;margin-top:30px;">
             <!--Highly rated movies-->
             <div class="w3-display-container w3-padding"><!--bab4ad-->
                 <span class="section-heading">Highest rating movies</span>
-                <div class="w3-row-padding w3-padding" style="width:100%; margin-top:16px; display:flex;justify-content: center;">
+                <div id="recentmoviesalt" class="w3-row-padding w3-padding" style="width:100%; margin-top:16px; display:flex;justify-content: center;">
+                    <%for(Film f : films){ %>
                     <div class="movie-thumbnail-alt w3-card-4 w3-left w3-center w3-round">
                         <img src="poster.jpg" alt="Movie 1" class="thumbnail-image w3-image w3-round" style="padding-bottom:12px;">
-                        Movie 11111111111111111111111111111111
+                        <%=f.getFilmName() %>
                         <br>
-                        <div style="position:absolute;bottom:0;left:19%;">User rating: 5/5</div> 
+                        <div style="position:absolute;bottom:0;left:19%;">User rating: <%=f.getFilmRating() %>/5</div> 
                     </div>
+                    <%} %>
                     <div class="movie-thumbnail-alt w3-card-4 w3-left w3-center w3-round">
                         <img src="poster.jpg" alt="Movie 2" class="thumbnail-image w3-image w3-round" style="padding-bottom:12px;">
                         Movie 2
@@ -396,14 +322,14 @@
                         <div style="position:absolute;bottom:0;left:19%;">User rating: 5/5</div>
                     </div>
                 </div>
-                <button class="slideshow-btn-alt  w3-display-left" style="margin-left:4px;" onclick="plusDivs(-1)">&#10094;</button>
-                <button class="slideshow-btn-alt  w3-display-right" style="margin-right:4px;" onclick="plusDivs(+1)">&#10095;</button>
+                <button class="slideshow-btn-alt  w3-display-left" style="margin-left:4px;" onclick="plusDivs(-1,2)">&#10094;</button>
+                <button class="slideshow-btn-alt  w3-display-right" style="margin-right:4px;" onclick="plusDivs(+1,2)">&#10095;</button>
             </div>
 
             <!--Highly rated series-->
             <div class="w3-display-container w3-padding" style="padding-top:20px;margin-top:50px;">
                 <span class="section-heading">Highest rating TV Shows</span>
-                <div class="w3-row-padding w3-padding" style="width:100%; margin-top:16px; display:flex;justify-content: center;">
+                <div id="recentseriesalt" class="w3-row-padding w3-padding" style="width:100%; margin-top:16px; display:flex;justify-content: center;">
                     <div class="series-thumbnail-alt w3-card-4 w3-left w3-center w3-round">
                         <img src="poster.jpg" alt="Movie 1" class="thumbnail-image w3-image w3-round" style="padding-bottom:12px;">
                         TV Series 1(Seasons,Episodes)
@@ -423,18 +349,21 @@
                         <div style="position:absolute;bottom:0;left:30%;">User rating: 5/5</div>
                     </div>
                 </div>
-                <button class="slideshow-btn-alt  w3-display-left" style="margin-left:4px;" onclick="plusDivs(-1)">&#10094;</button>
-                <button class="slideshow-btn-alt  w3-display-right" style="margin-right:4px;" onclick="plusDivs(+1)">&#10095;</button>
+                <button class="slideshow-btn-alt  w3-display-left" style="margin-left:4px;" onclick="plusDivs(-1,3)">&#10094;</button>
+                <button class="slideshow-btn-alt  w3-display-right" style="margin-right:4px;" onclick="plusDivs(+1,3)">&#10095;</button>
             </div>
         </div>
         </div>
     </body>
     <script>
 	var slideIndex = 1;
-	showDivs(slideIndex);
+	showDivs(slideIndex,0);
+	showDivs(slideIndex,1);
+	showDivs(slideIndex,2);
+	showDivs(slideIndex,3);
 
-	function plusDivs(n) {
-  		showDivs(slideIndex += n);
+	function plusDivs(n,sel) {
+  		showDivs(slideIndex += n,sel);
 	}
 	
 	function showForm(){
@@ -446,18 +375,45 @@
 		signInForm.style.display = "none";
 	}
 
-	function showDivs(n) {
+	function showDivs(n,sel) {
   		var i;
-  		var x = document.getElementsByClassName("movie-thumbnail");
-  		if (n > x.length) {slideIndex = 1}
-  		if (n < 1) {slideIndex = x.length} ;
-		document.getElementById("recentmovies").style.opacity=0;
+  		var x;
+  		var start,stop;
+  		switch(sel){
+	  		case 0: x= document.getElementsByClassName("movie-thumbnail");break;
+	  		case 1: x= document.getElementsByClassName("series-thumbnail");break;
+	  		case 2: x= document.getElementsByClassName("movie-thumbnail-alt");break;
+	  		case 3: x= document.getElementsByClassName("series-thumbnail-alt");break;
+  		}
+  		if(sel==0 || sel==2){
+  			if (n > x.length/5) {slideIndex = 1}
+  			if (n < 1) {slideIndex = x.length/5}
+  			start = (slideIndex-1)*5;
+  			stop = slideIndex * 5;
+  		}
+  		else{
+  			if (n > x.length/3) {slideIndex = 1}
+  			if (n < 1) {slideIndex = x.length/3}
+  			start = (slideIndex-1) * 3;
+  			stop = slideIndex * 3;
+  		}
+		switch(sel){
+			case 0: document.getElementById("recentmovies").style.opacity=0;break;
+			case 1: document.getElementById("recentseries").style.opacity=0;break;
+			case 2: document.getElementById("recentmoviesalt").style.opacity=0;break;
+			case 3: document.getElementById("recentseriesalt").style.opacity=0;break;
+		}
 		setTimeout(function(){ 
   			for (i = 0; i < x.length; i++) {
   				x[i].style.display = "none";
   			}
-			document.getElementById("recentmovies").style.opacity=1;
-			for (i = (slideIndex-1)*5; i < slideIndex*5; i++){
+  			switch(sel){
+  				case 0:document.getElementById("recentmovies").style.opacity=1;break;
+  				case 1:document.getElementById("recentseries").style.opacity=1;break;
+  				case 2:document.getElementById("recentmoviesalt").style.opacity=1;break;
+  				case 3:document.getElementById("recentseriesalt").style.opacity=1;break;
+  			}
+			for (i = start; i < stop; i++){
   				x[i].style.display = "block";
 			}
 			}, 250);
