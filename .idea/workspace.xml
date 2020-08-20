@@ -20,7 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a479a59e-a0f4-4014-8fcb-4a8be9d33513" name="Default Changelist" comment="film page">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jurassicpark.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/movie.html" beforeDir="false" afterPath="$PROJECT_DIR$/movie.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -63,7 +63,7 @@
       <workItem from="1597159208723" duration="1240000" />
       <workItem from="1597484123994" duration="4550000" />
       <workItem from="1597744261244" duration="4854000" />
-      <workItem from="1597842638276" duration="3363000" />
+      <workItem from="1597842638276" duration="3637000" />
     </task>
     <task id="LOCAL-00001" summary="film page">
       <created>1597487935572</created>
