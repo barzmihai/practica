@@ -1,3 +1,7 @@
+<?php
+    include_once 'dbconnection.php';
+?>
+
 <head>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://www.fontsquirrel.com/fonts/gnu-free-font">
@@ -117,33 +121,81 @@
 
 
     <!-- lista filme -->
-
 <div class="w3-container" style = "margin-left:20%; background-color:#e7dfd5">
 
     <div class="w3-row">
 
         <div class="w3-col w3-center w3-padding"  style="width: 25%; ">
-            <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
+            <a href="movie.html" class="w3-panel w3-card w3-hover-shadow w3-cell" >
                 <img src="poster.jpg" alt="Movie 1" class="thumbnail-image w3-image w3-round">
-                Movie 1
-            </div>
+                <?php
+                $id = "1";
+                $conn = OpenCon();
+                $sql = "SELECT * FROM film WHERE FilmID=?"; // SQL with parameters
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("i", $id);
+                $stmt->execute();
+                $result = $stmt->get_result(); // get the mysqli result
+                $user = $result->fetch_assoc(); // fetch the data
+                $resultCheck = mysqli_num_rows($result);
+
+                if ($resultCheck > 0){
+                    while ($row = mysqli_fetch_assoc($result)){
+                        echo $row['FilmName'];
+                    }
+                }
+                ?>
+            </a>
         </div>
         <div class="w3-col m1 w3-center w3-padding" style="width: 25%;">
             <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
                 <img src="poster.jpg" alt="Movie 2" class="thumbnail-image w3-image w3-round" >
-                Movie 2
+                <?php
+                $conn = OpenCon();
+                $sql = "SELECT * FROM film WHERE FilmID = 2";
+                $result = mysqli_query($conn, $sql);
+                $resultCheck = mysqli_num_rows($result);
+
+                if ($resultCheck > 0){
+                    while ($row = mysqli_fetch_assoc($result)){
+                        echo $row['FilmName'];
+                    }
+                }
+                ?>
             </div>
         </div>
         <div class="w3-col m1 w3-center w3-padding" style="width: 25%;">
             <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
                 <img src="poster.jpg" alt="Movie 3" class="thumbnail-image w3-image w3-round" >
-                Movie 3
+                <?php
+                $conn = OpenCon();
+                $sql = "SELECT * FROM film WHERE FilmID = 3";
+                $result = mysqli_query($conn, $sql);
+                $resultCheck = mysqli_num_rows($result);
+
+                if ($resultCheck > 0){
+                    while ($row = mysqli_fetch_assoc($result)){
+                        echo $row['FilmName'];
+                    }
+                }
+                ?>
             </div>
         </div>
         <div class="w3-col m1 w3-center w3-padding" style="width: 25%;">
             <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
                 <img src="poster.jpg" alt="Movie 4" class="thumbnail-image w3-image w3-round" >
-                Movie 4
+                <?php
+                $conn = OpenCon();
+                $sql = "SELECT * FROM film WHERE FilmID = 5";
+                $result = mysqli_query($conn, $sql);
+                $resultCheck = mysqli_num_rows($result);
+
+                if ($resultCheck > 0){
+                    while ($row = mysqli_fetch_assoc($result)){
+                        echo $row['FilmName'];
+                    }
+                }
+                ?>
             </div>
         </div>
     </div>
@@ -153,25 +205,69 @@
         <div class="w3-col w3-center w3-padding"  style="width: 25%; ">
             <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
                 <img src="poster.jpg" alt="Movie 1" class="thumbnail-image w3-image w3-round">
-                Movie 1
+                <?php
+                $conn = OpenCon();
+                $sql = "SELECT * FROM film WHERE FilmID = 6";
+                $result = mysqli_query($conn, $sql);
+                $resultCheck = mysqli_num_rows($result);
+
+                if ($resultCheck > 0){
+                    while ($row = mysqli_fetch_assoc($result)){
+                        echo $row['FilmName'];
+                    }
+                }
+                ?>
             </div>
         </div>
         <div class="w3-col m1 w3-center w3-padding" style="width: 25%;">
             <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
                 <img src="poster.jpg" alt="Movie 2" class="thumbnail-image w3-image w3-round" >
-                Movie 2
+                <?php
+                $conn = OpenCon();
+                $sql = "SELECT * FROM film WHERE FilmID = 7";
+                $result = mysqli_query($conn, $sql);
+                $resultCheck = mysqli_num_rows($result);
+
+                if ($resultCheck > 0){
+                    while ($row = mysqli_fetch_assoc($result)){
+                        echo $row['FilmName'];
+                    }
+                }
+                ?>
             </div>
         </div>
         <div class="w3-col m1 w3-center w3-padding" style="width: 25%;">
             <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
                 <img src="poster.jpg" alt="Movie 3" class="thumbnail-image w3-image w3-round" >
-                Movie 3
+                <?php
+                $conn = OpenCon();
+                $sql = "SELECT * FROM film WHERE FilmID = 8";
+                $result = mysqli_query($conn, $sql);
+                $resultCheck = mysqli_num_rows($result);
+
+                if ($resultCheck > 0){
+                    while ($row = mysqli_fetch_assoc($result)){
+                        echo $row['FilmName'];
+                    }
+                }
+                ?>
             </div>
         </div>
         <div class="w3-col m1 w3-center w3-padding" style="width: 25%;">
             <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
                 <img src="poster.jpg" alt="Movie 4" class="thumbnail-image w3-image w3-round" >
-                Movie 4
+                <?php
+                $conn = OpenCon();
+                $sql = "SELECT * FROM film WHERE FilmID = 9";
+                $result = mysqli_query($conn, $sql);
+                $resultCheck = mysqli_num_rows($result);
+
+                if ($resultCheck > 0){
+                    while ($row = mysqli_fetch_assoc($result)){
+                        echo $row['FilmName'];
+                    }
+                }
+                ?>
             </div>
         </div>
     </div>
@@ -181,25 +277,69 @@
         <div class="w3-col w3-center w3-padding"  style="width: 25%; ">
             <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
                 <img src="poster.jpg" alt="Movie 1" class="thumbnail-image w3-image w3-round">
-                Movie 1
+                <?php
+                $conn = OpenCon();
+                $sql = "SELECT * FROM film WHERE FilmID = 10";
+                $result = mysqli_query($conn, $sql);
+                $resultCheck = mysqli_num_rows($result);
+
+                if ($resultCheck > 0){
+                    while ($row = mysqli_fetch_assoc($result)){
+                        echo $row['FilmName'];
+                    }
+                }
+                ?>
             </div>
         </div>
         <div class="w3-col m1 w3-center w3-padding" style="width: 25%;">
             <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
                 <img src="poster.jpg" alt="Movie 2" class="thumbnail-image w3-image w3-round" >
-                Movie 2
+                <?php
+                $conn = OpenCon();
+                $sql = "SELECT * FROM film WHERE FilmID = 11";
+                $result = mysqli_query($conn, $sql);
+                $resultCheck = mysqli_num_rows($result);
+
+                if ($resultCheck > 0){
+                    while ($row = mysqli_fetch_assoc($result)){
+                        echo $row['FilmName'];
+                    }
+                }
+                ?>
             </div>
         </div>
         <div class="w3-col m1 w3-center w3-padding" style="width: 25%;">
             <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
                 <img src="poster.jpg" alt="Movie 3" class="thumbnail-image w3-image w3-round" >
-                Movie 3
+                <?php
+                $conn = OpenCon();
+                $sql = "SELECT * FROM film WHERE FilmID = 12";
+                $result = mysqli_query($conn, $sql);
+                $resultCheck = mysqli_num_rows($result);
+
+                if ($resultCheck > 0){
+                    while ($row = mysqli_fetch_assoc($result)){
+                        echo $row['FilmName'];
+                    }
+                }
+                ?>
             </div>
         </div>
         <div class="w3-col m1 w3-center w3-padding" style="width: 25%;">
             <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
                 <img src="poster.jpg" alt="Movie 4" class="thumbnail-image w3-image w3-round" >
-                Movie 4
+                <?php
+                $conn = OpenCon();
+                $sql = "SELECT * FROM film WHERE FilmID = 13";
+                $result = mysqli_query($conn, $sql);
+                $resultCheck = mysqli_num_rows($result);
+
+                if ($resultCheck > 0){
+                    while ($row = mysqli_fetch_assoc($result)){
+                        echo $row['FilmName'];
+                    }
+                }
+                ?>
             </div>
         </div>
     </div>
