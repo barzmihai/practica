@@ -1,7 +1,3 @@
-<?php
-    include_once 'dbconnection.php';
-?>
-
 <head>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://www.fontsquirrel.com/fonts/gnu-free-font">
@@ -36,6 +32,8 @@
     </style>
     <title>Movies</title>
 </head>
+
+
 <div style="background-color: #e7dfd5">
     <!-- Navbar -->
     <div class="w3-container" style="background-color: #204051; color:white;padding:0px;">
@@ -68,13 +66,19 @@
         <h2>Movies</h2>
         <!--sort by-->
         <div class="w3-dropdown-hover">
+            <input type="hidden" name="pageNum" value="<?php
+            print("1");
+            ?>">
+            <input type="hidden" name="sortOrd" value="<?php
+            $psortOrd = 1;
+            print("$psortOrd");
+            ?>">
             <button class="w3-button" style = "background-color: #c8c2bb">Sort by</button>
             <div class="w3-dropdown-content w3-border">
-                <a href="#releaseasc" class="w3-bar-item w3-button">Release date ascending</a>
-                <a href="#releasedsc" class="w3-bar-item w3-button">Release date descending</a>
-                <a href="#rating" class="w3-bar-item w3-button">Rating</a>
-                <a href="#nameasc" class="w3-bar-item w3-button">Name ascending</a>
-                <a href="#namedsc" class="w3-bar-item w3-button">Name descending</a>
+                <a href="movies.php?sortOrd=1" class="w3-bar-item w3-button">Release date ascending</a>
+                <a href="movies.php?sortOrd=2" class="w3-bar-item w3-button">Release date descending</a>
+                <a href="movies.php?sortOrd=3" class="w3-bar-item w3-button">Name ascending</a>
+                <a href="movies.php?sortOrd=4" class="w3-bar-item w3-button">Name descending</a>
             </div>
         </div>
         <br>
@@ -82,28 +86,18 @@
         <div class="w3-dropdown-hover">
             <button class="w3-button" style = "background-color: #c8c2bb">Genre</button>
             <div class="w3-dropdown-content w3-border">
-                <a href="#comedy" class="w3-bar-item w3-button">Comedy</a>
-                <a href="#action" class="w3-bar-item w3-button">Action</a>
-                <a href="#drama" class="w3-bar-item w3-button">Drama</a>
-                <a href="#musical" class="w3-bar-item w3-button">Musical</a>
-                <a href="#other" class="w3-bar-item w3-button">Other</a>
-                <a href="#romantic" class="w3-bar-item w3-button">Romantic</a>
+                <a href="movies.php?genre=comedy" class="w3-bar-item w3-button">Comedy</a>
+                <a href="movies.php?genre=action" class="w3-bar-item w3-button">Action</a>
+                <a href="movies.php?genre=drama" class="w3-bar-item w3-button">Drama</a>
+                <a href="movies.php?genre=musical" class="w3-bar-item w3-button">Musical</a>
+                <a href="movies.php?genre=other" class="w3-bar-item w3-button">Other</a>
+                <a href="movies.php?genre=romantic" class="w3-bar-item w3-button">Romantic</a>
             </div>
         </div>
         <br>
         <div class="w3-dropdown-hover">
             <button class="w3-button" style = "background-color: #c8c2bb">Year</button>
             <div class="w3-dropdown-content w3-border">
-                <a href="#2020" class="w3-bar-item w3-button">2020</a>
-                <a href="#2019" class="w3-bar-item w3-button">2019</a>
-                <a href="#2018" class="w3-bar-item w3-button">2018</a>
-                <a href="#2017" class="w3-bar-item w3-button">2017</a>
-                <a href="#2016" class="w3-bar-item w3-button">2016</a>
-                <a href="#2015" class="w3-bar-item w3-button">2015</a>
-                <a href="#2014" class="w3-bar-item w3-button">2014</a>
-                <a href="#2013" class="w3-bar-item w3-button">2013</a>
-                <a href="#2012" class="w3-bar-item w3-button">2012</a>
-                <a href="#2011" class="w3-bar-item w3-button">2011</a>
                 <a href="#2010" class="w3-bar-item w3-button">2010</a>
                 <a href="#2009" class="w3-bar-item w3-button">2009</a>
                 <a href="#2008" class="w3-bar-item w3-button">2008</a>
@@ -121,239 +115,90 @@
 
 
     <!-- lista filme -->
+    <?php
+
+    // **************************************************
+    function paint($pdbConn, $pageNumb, $sortOrd, $pitemPerPage, $result)
+    {
+
+    ?>
+
 <div class="w3-container" style = "margin-left:20%; background-color:#e7dfd5">
 
     <div class="w3-row">
+        <?php
+        while ($row = mysqli_fetch_assoc($result)){
+            echo '
+        <div class="w3-col w3-center w3-padding"  style="width: 25%; height: 60% ">
+            <a href="movie.php?ID=' . $row['FilmID'] . '" class="w3-panel w3-card w3-hover-shadow w3-cell" >
+                <img src="posters/' . rawurldecode($row['FilmName']) . '.jpg" alt="' . rawurldecode($row['FilmName']) . '" class="thumbnail-image w3-image w3-round">' .
+                    $row['FilmName'] .
 
-        <div class="w3-col w3-center w3-padding"  style="width: 25%; ">
-            <a href="movie.html" class="w3-panel w3-card w3-hover-shadow w3-cell" >
-                <img src="poster.jpg" alt="Movie 1" class="thumbnail-image w3-image w3-round">
-                <?php
-                $id = "1";
-                $conn = OpenCon();
-                $sql = "SELECT * FROM film WHERE FilmID=?"; // SQL with parameters
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param("i", $id);
-                $stmt->execute();
-                $result = $stmt->get_result(); // get the mysqli result
-                $user = $result->fetch_assoc(); // fetch the data
-                $resultCheck = mysqli_num_rows($result);
 
-                if ($resultCheck > 0){
-                    while ($row = mysqli_fetch_assoc($result)){
-                        echo $row['FilmName'];
-                    }
-                }
-                ?>
-            </a>
-        </div>
-        <div class="w3-col m1 w3-center w3-padding" style="width: 25%;">
-            <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
-                <img src="poster.jpg" alt="Movie 2" class="thumbnail-image w3-image w3-round" >
-                <?php
-                $conn = OpenCon();
-                $sql = "SELECT * FROM film WHERE FilmID = 2";
-                $result = mysqli_query($conn, $sql);
-                $resultCheck = mysqli_num_rows($result);
-
-                if ($resultCheck > 0){
-                    while ($row = mysqli_fetch_assoc($result)){
-                        echo $row['FilmName'];
-                    }
-                }
-                ?>
-            </div>
-        </div>
-        <div class="w3-col m1 w3-center w3-padding" style="width: 25%;">
-            <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
-                <img src="poster.jpg" alt="Movie 3" class="thumbnail-image w3-image w3-round" >
-                <?php
-                $conn = OpenCon();
-                $sql = "SELECT * FROM film WHERE FilmID = 3";
-                $result = mysqli_query($conn, $sql);
-                $resultCheck = mysqli_num_rows($result);
-
-                if ($resultCheck > 0){
-                    while ($row = mysqli_fetch_assoc($result)){
-                        echo $row['FilmName'];
-                    }
-                }
-                ?>
-            </div>
-        </div>
-        <div class="w3-col m1 w3-center w3-padding" style="width: 25%;">
-            <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
-                <img src="poster.jpg" alt="Movie 4" class="thumbnail-image w3-image w3-round" >
-                <?php
-                $conn = OpenCon();
-                $sql = "SELECT * FROM film WHERE FilmID = 5";
-                $result = mysqli_query($conn, $sql);
-                $resultCheck = mysqli_num_rows($result);
-
-                if ($resultCheck > 0){
-                    while ($row = mysqli_fetch_assoc($result)){
-                        echo $row['FilmName'];
-                    }
-                }
-                ?>
-            </div>
-        </div>
+          '  </a>
+        </div>';
+        }?>
     </div>
 
-    <div class="w3-row">
+    <?php
+        }
 
-        <div class="w3-col w3-center w3-padding"  style="width: 25%; ">
-            <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
-                <img src="poster.jpg" alt="Movie 1" class="thumbnail-image w3-image w3-round">
-                <?php
-                $conn = OpenCon();
-                $sql = "SELECT * FROM film WHERE FilmID = 6";
-                $result = mysqli_query($conn, $sql);
-                $resultCheck = mysqli_num_rows($result);
+        // **************************************************
+        // main page here:
+        include "dbconnection.php";
+        $dbConn = openCon();
 
-                if ($resultCheck > 0){
-                    while ($row = mysqli_fetch_assoc($result)){
-                        echo $row['FilmName'];
-                    }
-                }
-                ?>
-            </div>
-        </div>
-        <div class="w3-col m1 w3-center w3-padding" style="width: 25%;">
-            <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
-                <img src="poster.jpg" alt="Movie 2" class="thumbnail-image w3-image w3-round" >
-                <?php
-                $conn = OpenCon();
-                $sql = "SELECT * FROM film WHERE FilmID = 7";
-                $result = mysqli_query($conn, $sql);
-                $resultCheck = mysqli_num_rows($result);
+        global $itemPerPage;
+        $itemPerPage = 12;
 
-                if ($resultCheck > 0){
-                    while ($row = mysqli_fetch_assoc($result)){
-                        echo $row['FilmName'];
-                    }
-                }
-                ?>
-            </div>
-        </div>
-        <div class="w3-col m1 w3-center w3-padding" style="width: 25%;">
-            <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
-                <img src="poster.jpg" alt="Movie 3" class="thumbnail-image w3-image w3-round" >
-                <?php
-                $conn = OpenCon();
-                $sql = "SELECT * FROM film WHERE FilmID = 8";
-                $result = mysqli_query($conn, $sql);
-                $resultCheck = mysqli_num_rows($result);
+        $sql = "SELECT * FROM film";
+        $result = mysqli_query($dbConn,$sql);
+        $nr_of_results = mysqli_num_rows($result);
+        $nr_of_pages =ceil($nr_of_results / $itemPerPage);
 
-                if ($resultCheck > 0){
-                    while ($row = mysqli_fetch_assoc($result)){
-                        echo $row['FilmName'];
-                    }
-                }
-                ?>
-            </div>
-        </div>
-        <div class="w3-col m1 w3-center w3-padding" style="width: 25%;">
-            <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
-                <img src="poster.jpg" alt="Movie 4" class="thumbnail-image w3-image w3-round" >
-                <?php
-                $conn = OpenCon();
-                $sql = "SELECT * FROM film WHERE FilmID = 9";
-                $result = mysqli_query($conn, $sql);
-                $resultCheck = mysqli_num_rows($result);
+        if (!isset($_GET['page'])){
+            $page = 1;
+        } else {
+            $page = $_GET['page'];
+        }
 
-                if ($resultCheck > 0){
-                    while ($row = mysqli_fetch_assoc($result)){
-                        echo $row['FilmName'];
-                    }
-                }
-                ?>
-            </div>
-        </div>
-    </div>
+        if (!isset($_GET['sortOrd'])){
+            $sortOrd = 7;
+        } else {
+            $sortOrd = $_GET['sortOrd'];
+        }
 
-    <div class="w3-row">
+        if (!isset($_GET['genre'])){
+            $genre = 'ALL';
+        } else {
+            $genre = $_GET['genre'];
+        }
 
-        <div class="w3-col w3-center w3-padding"  style="width: 25%; ">
-            <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
-                <img src="poster.jpg" alt="Movie 1" class="thumbnail-image w3-image w3-round">
-                <?php
-                $conn = OpenCon();
-                $sql = "SELECT * FROM film WHERE FilmID = 10";
-                $result = mysqli_query($conn, $sql);
-                $resultCheck = mysqli_num_rows($result);
+       $this_page_first_result = ($page - 1) * $itemPerPage;
 
-                if ($resultCheck > 0){
-                    while ($row = mysqli_fetch_assoc($result)){
-                        echo $row['FilmName'];
-                    }
-                }
-                ?>
-            </div>
-        </div>
-        <div class="w3-col m1 w3-center w3-padding" style="width: 25%;">
-            <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
-                <img src="poster.jpg" alt="Movie 2" class="thumbnail-image w3-image w3-round" >
-                <?php
-                $conn = OpenCon();
-                $sql = "SELECT * FROM film WHERE FilmID = 11";
-                $result = mysqli_query($conn, $sql);
-                $resultCheck = mysqli_num_rows($result);
+    $sql = "SELECT * FROM film LIMIT " . $this_page_first_result . ',' . $itemPerPage;
+    $result = mysqli_query($dbConn, $sql);
 
-                if ($resultCheck > 0){
-                    while ($row = mysqli_fetch_assoc($result)){
-                        echo $row['FilmName'];
-                    }
-                }
-                ?>
-            </div>
-        </div>
-        <div class="w3-col m1 w3-center w3-padding" style="width: 25%;">
-            <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
-                <img src="poster.jpg" alt="Movie 3" class="thumbnail-image w3-image w3-round" >
-                <?php
-                $conn = OpenCon();
-                $sql = "SELECT * FROM film WHERE FilmID = 12";
-                $result = mysqli_query($conn, $sql);
-                $resultCheck = mysqli_num_rows($result);
+        if ($sortOrd == 1){
+            $sql = "SELECT * FROM film ORDER BY FilmReleaseDate ASC LIMIT " . $this_page_first_result . ',' . $itemPerPage;
+            $result = mysqli_query($dbConn, $sql);
+        } else if ($sortOrd == 2){
+            $sql = "SELECT * FROM film ORDER BY FilmReleaseDate DSC LIMIT " . $this_page_first_result . ',' . $itemPerPage;
+            $result = mysqli_query($dbConn, $sql);
+        } else if ($sortOrd == 3){
+            $sql = "SELECT * FROM film ORDER BY FilmName ASC LIMIT " . $this_page_first_result . ',' . $itemPerPage;
+            $result = mysqli_query($dbConn, $sql);
+        } else if ($sortOrd == 4){
+            $sql = "SELECT * FROM film ORDER BY FilmName DSC LIMIT " . $this_page_first_result . ',' . $itemPerPage;
+            $result = mysqli_query($dbConn, $sql);
+        }
 
-                if ($resultCheck > 0){
-                    while ($row = mysqli_fetch_assoc($result)){
-                        echo $row['FilmName'];
-                    }
-                }
-                ?>
-            </div>
-        </div>
-        <div class="w3-col m1 w3-center w3-padding" style="width: 25%;">
-            <div class="w3-panel w3-card w3-hover-shadow w3-cell" >
-                <img src="poster.jpg" alt="Movie 4" class="thumbnail-image w3-image w3-round" >
-                <?php
-                $conn = OpenCon();
-                $sql = "SELECT * FROM film WHERE FilmID = 13";
-                $result = mysqli_query($conn, $sql);
-                $resultCheck = mysqli_num_rows($result);
+        paint($dbConn, $page, $sortOrd, $itemPerPage, $result);
 
-                if ($resultCheck > 0){
-                    while ($row = mysqli_fetch_assoc($result)){
-                        echo $row['FilmName'];
-                    }
-                }
-                ?>
-            </div>
-        </div>
-    </div>
-
-    <div class="center">
-        <div class="pagination" >
-            <a href="#">&laquo;</a>
-            <a class="active" href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">&raquo;</a>
-        </div>
-    </div>
+    for ($page = 1; $page<=$nr_of_pages; $page++){
+        echo '<a href="movies.php?page=' . $page . '">' . $page . '&nbsp&nbsp</a>';
+    }
+    ?>
 </div>
 </div>
 </body>
